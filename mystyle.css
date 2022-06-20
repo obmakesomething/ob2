@@ -1,0 +1,76 @@
+html {
+    font-size: 16px; font-family: 'Noto Sans KR', sans-serif;
+ 
+}
+
+
+
+.container{
+    display: grid;
+    width: 1400px;
+    grid-template-columns:  220px 500px 500px 220px ;
+    margin: 0px auto;    
+    
+}
+
+.container2{
+    display: grid;
+    width: 1440px;
+    grid-template-columns: 0px 1440px 0px ;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.container3{
+    display: grid;
+    width: 1440px;
+    margin: 0px auto;
+    color: black;
+}
+
+.headernav{
+    display: grid;
+    width: 1440px;
+    grid-template-columns:  240px 240px 240px 240px 240px 240px ;
+    margin: 0px auto;
+    text-align: center;
+    background-color: black;
+    color: white;
+    margin-right: 1px white;
+    font-size: 1.25rem ;
+}
+
+.item{
+    font-size: 1.25rem ;
+
+}
+
+.item1{
+    font-size: 2.5rem ;
+}
+
+.headtext{
+    top: 500px; color: white;    position: absolute;
+}
+
+.whitetext{
+    text-decoration-color: white;
+}
+
+.text{
+    font-family: 'Noto Sans KR', sans-serif;
+
+
+}
+
+.box1{margin: 20px; line-height: 24px;}
+
+.box2{
+    margin: 20px;
+    font-size: 0.8rem;
+    color: rgb(41, 41, 41);
+    line-height: 16px;
+}
+.text1{
+    line-height: 24px;
+
+}

@@ -1,17 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Layout } from './components/layout/Layout';
 import { DashboardView } from './components/views/DashboardView';
 import { CalendarView } from './components/views/CalendarView';
 import { TimelineView } from './components/views/TimelineView';
 import { ListView } from './components/views/ListView';
+import { MorningBriefing } from './components/MorningBriefing';
 import { useTaskStore } from './stores/useTaskStore';
 import { useThemeStore } from './stores/useThemeStore';
 import { taskService } from './lib/supabase';
 import { scheduleDailyReview } from './lib/dailyReview';
+import { getMillisecondsUntilNextKorea8AM, formatKoreaTime } from './utils/koreaTime';
 
 function App() {
   const { viewMode, setTasks, setLoading, setError } = useTaskStore();
   const { setTheme } = useThemeStore();
+  const [showMorningBriefing, setShowMorningBriefing] = useState(false);
 
   // Initialize theme
   useEffect(() => {
@@ -45,6 +48,35 @@ function App() {
     scheduleDailyReview(18); // 18:00 (6 PM)
   }, []);
 
+  // Morning briefing at 8 AM Korea time
+  useEffect(() => {
+    const checkMorningBriefing = () => {
+      const today = formatKoreaTime(new Date(), 'yyyy-MM-dd');
+      const lastShown = localStorage.getItem('last-morning-briefing');
+
+      // Show morning briefing if not shown today
+      if (lastShown !== today) {
+        setShowMorningBriefing(true);
+        localStorage.setItem('last-morning-briefing', today);
+      }
+    };
+
+    // Check immediately
+    checkMorningBriefing();
+
+    // Schedule next check at 8 AM
+    const scheduleNext8AM = () => {
+      const msUntil8AM = getMillisecondsUntilNextKorea8AM();
+
+      setTimeout(() => {
+        checkMorningBriefing();
+        scheduleNext8AM(); // Reschedule for next day
+      }, msUntil8AM);
+    };
+
+    scheduleNext8AM();
+  }, []);
+
   const renderView = () => {
     switch (viewMode) {
       case 'dashboard':
@@ -61,9 +93,13 @@ function App() {
   };
 
   return (
-    <Layout>
-      {renderView()}
-    </Layout>
+    <>
+      <Layout>{renderView()}</Layout>
+      <MorningBriefing
+        isOpen={showMorningBriefing}
+        onClose={() => setShowMorningBriefing(false)}
+      />
+    </>
   );
 }
 

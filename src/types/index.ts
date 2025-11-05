@@ -5,6 +5,7 @@ export interface Task {
   created_at: string;
   updated_at: string;
   completed_at?: string;
+  due_date?: string; // 마감일
   status: 'pending' | 'in_progress' | 'completed' | 'archived';
   priority: 'low' | 'medium' | 'high' | 'urgent';
   tags: string[];

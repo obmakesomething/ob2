@@ -45,7 +45,7 @@
   }
 
   p {
-    @apply text-base leading-paragraph;
+    @apply text-base leading-relaxed;
     @apply mb-paragraph;
   }
 

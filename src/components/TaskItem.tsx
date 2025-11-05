@@ -6,9 +6,11 @@ import {
   Clock,
   Tag,
   AlertCircle,
+  Plus,
 } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
+import { TagManager } from './TagManager';
 import { useTaskStore } from '@/stores/useTaskStore';
 import { taskService } from '@/lib/supabase';
 import type { Task } from '@/types';
@@ -20,6 +22,7 @@ interface TaskItemProps {
 export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
   const { updateTask } = useTaskStore();
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [isTagManagerOpen, setIsTagManagerOpen] = useState(false);
 
   // Timer effect
   useEffect(() => {
@@ -79,6 +82,16 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     }
   };
 
+  const handleUpdateTags = async (taskId: string, tags: string[]) => {
+    try {
+      await taskService.updateTask(taskId, { tags });
+      updateTask(taskId, { tags });
+    } catch (error) {
+      console.error('Error updating tags:', error);
+      throw error;
+    }
+  };
+
   const priorityColors = {
     low: 'text-blue-500',
     medium: 'text-yellow-500',
@@ -127,14 +140,23 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             )}
 
             {task.tags.map((tag) => (
-              <span
+              <button
                 key={tag}
-                className="flex items-center gap-1 px-2 py-1 rounded text-xs bg-light-hover dark:bg-dark-hover"
+                onClick={() => setIsTagManagerOpen(true)}
+                className="flex items-center gap-1 px-2 py-1 rounded text-xs bg-light-hover dark:bg-dark-hover hover:bg-accent-primary/20 dark:hover:bg-accent-primary/20 transition-smooth"
               >
                 <Tag className="w-3 h-3" />
                 {tag}
-              </span>
+              </button>
             ))}
+
+            <button
+              onClick={() => setIsTagManagerOpen(true)}
+              className="flex items-center gap-1 px-2 py-1 rounded text-xs bg-accent-primary/10 text-accent-primary hover:bg-accent-primary/20 transition-smooth"
+            >
+              <Plus className="w-3 h-3" />
+              {task.tags.length === 0 ? 'Add tags' : 'Manage'}
+            </button>
 
             {task.estimated_duration && (
               <span className="flex items-center gap-1 text-light-text-tertiary dark:text-dark-text-tertiary">
@@ -196,6 +218,13 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
           </div>
         </div>
       </div>
+
+      <TagManager
+        isOpen={isTagManagerOpen}
+        onClose={() => setIsTagManagerOpen(false)}
+        task={task}
+        onUpdateTags={handleUpdateTags}
+      />
     </Card>
   );
 };

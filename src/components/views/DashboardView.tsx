@@ -5,6 +5,7 @@ import { QuickInput } from '../QuickInput';
 import { Card } from '../ui/Card';
 import { TaskList } from '../TaskList';
 import { DailyReview } from '../DailyReview';
+import { MultiTagBoard } from '../MultiTagBoard';
 
 export const DashboardView: React.FC = () => {
   const { tasks } = useTaskStore();
@@ -88,6 +89,11 @@ export const DashboardView: React.FC = () => {
             </div>
           </Card>
         </div>
+      </div>
+
+      {/* Multi-Tag Board */}
+      <div>
+        <MultiTagBoard />
       </div>
 
       {/* Active Tasks */}

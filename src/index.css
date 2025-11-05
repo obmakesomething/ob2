@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-dark-border dark:border-dark-border;
+  }
+
+  body {
+    @apply bg-light-bg dark:bg-dark-bg text-light-text-primary dark:text-dark-text-primary;
+    @apply font-sans antialiased;
+    @apply transition-colors duration-smooth;
+  }
+
+  /* Typography hierarchy */
+  h1 {
+    @apply text-4xl font-normal tracking-tight;
+    @apply mb-4;
+  }
+
+  h2 {
+    @apply text-3xl font-normal tracking-tight;
+    @apply mb-3;
+  }
+
+  h3 {
+    @apply text-2xl font-normal;
+    @apply mb-3;
+  }
+
+  h4 {
+    @apply text-xl font-normal;
+    @apply mb-2;
+  }
+
+  h5 {
+    @apply text-lg font-normal;
+    @apply mb-2;
+  }
+
+  h6 {
+    @apply text-base font-medium;
+    @apply mb-2;
+  }
+
+  p {
+    @apply text-base leading-paragraph;
+    @apply mb-paragraph;
+  }
+
+  /* Remove default margins for last children */
+  *:last-child {
+    @apply mb-0;
+  }
+}
+
+@layer components {
+  /* Smooth transitions for all interactive elements */
+  .transition-smooth {
+    @apply transition-all duration-smooth ease-in-out;
+  }
+
+  /* Card component base */
+  .card {
+    @apply bg-light-surface dark:bg-dark-surface;
+    @apply border border-light-border dark:border-dark-border;
+    @apply rounded-lg p-4;
+    @apply transition-smooth;
+  }
+
+  .card:hover {
+    @apply bg-light-hover dark:bg-dark-hover;
+  }
+
+  /* Button base styles */
+  .btn {
+    @apply px-4 py-2 rounded-lg;
+    @apply transition-smooth;
+    @apply font-medium text-sm;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2;
+    @apply focus:ring-offset-light-bg dark:focus:ring-offset-dark-bg;
+  }
+
+  .btn-primary {
+    @apply bg-accent-primary text-white;
+    @apply hover:bg-blue-600;
+  }
+
+  .btn-secondary {
+    @apply bg-light-surface dark:bg-dark-surface;
+    @apply border border-light-border dark:border-dark-border;
+    @apply hover:bg-light-hover dark:hover:bg-dark-hover;
+  }
+
+  /* Input styles */
+  .input {
+    @apply bg-light-surface dark:bg-dark-surface;
+    @apply border border-light-border dark:border-dark-border;
+    @apply rounded-lg px-3 py-2;
+    @apply transition-smooth;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-primary;
+    @apply placeholder:text-light-text-tertiary dark:placeholder:text-dark-text-tertiary;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-light-bg dark:bg-dark-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-light-text-tertiary dark:bg-dark-text-tertiary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-light-text-secondary dark:bg-dark-text-secondary;
+}
+
+/* Animation classes */
+.animate-in {
+  animation: slideIn 200ms ease-in-out;
+}
+
+.fade-in {
+  animation: fadeIn 200ms ease-in-out;
+}

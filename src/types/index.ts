@@ -49,4 +49,4 @@ export interface AIAnalysis {
   estimated_duration?: number;
 }
 
-export type ViewMode = 'calendar' | 'timeline' | 'dashboard' | 'list';
+export type ViewMode = 'calendar' | 'timeline' | 'dashboard' | 'list' | 'graph' | 'spreadsheet';

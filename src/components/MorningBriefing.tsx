@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { X, Plus, Coffee, CheckCircle2, Clock } from 'lucide-react';
+import { X, Plus, Coffee, CheckCircle2, Clock, Calendar, AlertTriangle } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { useTaskStore } from '@/stores/useTaskStore';
 import { formatKoreaTime, isTodayKorea } from '@/utils/koreaTime';
+import { calculateDday, getDdayColor, getDdayDescription, getDdayStatus } from '@/utils/dday';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface MorningBriefingProps {
@@ -14,6 +15,20 @@ interface MorningBriefingProps {
 export const MorningBriefing: React.FC<MorningBriefingProps> = ({ isOpen, onClose }) => {
   const { tasks } = useTaskStore();
   const [newTaskTitle, setNewTaskTitle] = useState('');
+
+  // D-day 있는 작업들 (마감일 가까운 순)
+  const ddayTasks = tasks
+    .filter(
+      (task) =>
+        task.due_date &&
+        task.status !== 'completed' &&
+        task.status !== 'archived'
+    )
+    .sort((a, b) => {
+      if (!a.due_date || !b.due_date) return 0;
+      return new Date(a.due_date).getTime() - new Date(b.due_date).getTime();
+    })
+    .slice(0, 5); // 상위 5개만
 
   // 오늘의 할 일 필터링
   const todayTasks = tasks.filter(
@@ -98,6 +113,57 @@ export const MorningBriefing: React.FC<MorningBriefingProps> = ({ isOpen, onClos
                 </div>
               </Card>
             </div>
+
+            {/* D-day Tasks */}
+            {ddayTasks.length > 0 && (
+              <div className="mb-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Calendar className="w-5 h-5 text-accent-danger" />
+                  <h3 className="text-lg font-medium mb-0">Upcoming Deadlines</h3>
+                </div>
+                <div className="space-y-2">
+                  {ddayTasks.map((task) => {
+                    const ddayColors = getDdayColor(task.due_date!);
+                    const ddayText = calculateDday(task.due_date!);
+                    const ddayDesc = getDdayDescription(task.due_date!);
+                    const status = getDdayStatus(task.due_date!);
+
+                    return (
+                      <Card
+                        key={task.id}
+                        hover={false}
+                        className={`${ddayColors.bg} border-l-4 ${ddayColors.border}`}
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-sm font-medium mb-1">{task.title}</h4>
+                            <div className="flex items-center gap-2 text-xs text-light-text-tertiary dark:text-dark-text-tertiary">
+                              {status === 'overdue' && (
+                                <AlertTriangle className="w-3 h-3 text-accent-danger" />
+                              )}
+                              <span>{ddayDesc}</span>
+                              {task.tags.slice(0, 2).map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="px-2 py-0.5 rounded bg-light-hover dark:bg-dark-hover"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div
+                            className={`px-3 py-1 rounded-lg font-medium text-sm ${ddayColors.bg} ${ddayColors.text}`}
+                          >
+                            {ddayText}
+                          </div>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Quick Add */}
             <div className="mb-6">

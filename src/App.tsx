@@ -4,6 +4,8 @@ import { DashboardView } from './components/views/DashboardView';
 import { CalendarView } from './components/views/CalendarView';
 import { TimelineView } from './components/views/TimelineView';
 import { ListView } from './components/views/ListView';
+import { GraphView } from './components/views/GraphView';
+import { SpreadsheetView } from './components/views/SpreadsheetView';
 import { MorningBriefing } from './components/MorningBriefing';
 import { useTaskStore } from './stores/useTaskStore';
 import { useThemeStore } from './stores/useThemeStore';
@@ -87,6 +89,10 @@ function App() {
         return <TimelineView />;
       case 'list':
         return <ListView />;
+      case 'graph':
+        return <GraphView />;
+      case 'spreadsheet':
+        return <SpreadsheetView />;
       default:
         return <DashboardView />;
     }

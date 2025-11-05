@@ -6,6 +6,8 @@ import {
   List,
   GitBranch,
   Sparkles,
+  Network,
+  Table2,
 } from 'lucide-react';
 import { useTaskStore } from '@/stores/useTaskStore';
 import type { ViewMode } from '@/types';
@@ -15,6 +17,8 @@ const menuItems: { icon: React.ReactNode; label: string; view: ViewMode }[] = [
   { icon: <Calendar className="w-5 h-5" />, label: 'Calendar', view: 'calendar' },
   { icon: <Clock className="w-5 h-5" />, label: 'Timeline', view: 'timeline' },
   { icon: <List className="w-5 h-5" />, label: 'List', view: 'list' },
+  { icon: <Network className="w-5 h-5" />, label: 'Graph', view: 'graph' },
+  { icon: <Table2 className="w-5 h-5" />, label: 'Spreadsheet', view: 'spreadsheet' },
 ];
 
 export const Sidebar: React.FC = () => {

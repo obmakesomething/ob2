@@ -6,7 +6,16 @@ interface PasswordProtectionProps {
   children: React.ReactNode;
 }
 
-const APP_PASSWORD = import.meta.env.VITE_APP_PASSWORD || '웰시댕구야';
+// Default password - can be overridden by environment variable
+const getPassword = () => {
+  try {
+    return import.meta.env.VITE_APP_PASSWORD || '웰시댕구야';
+  } catch (error) {
+    return '웰시댕구야';
+  }
+};
+
+const APP_PASSWORD = getPassword();
 const AUTH_KEY = 'task-organizer-auth';
 
 export const PasswordProtection: React.FC<PasswordProtectionProps> = ({ children }) => {

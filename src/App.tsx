@@ -7,6 +7,7 @@ import { ListView } from './components/views/ListView';
 import { GraphView } from './components/views/GraphView';
 import { SpreadsheetView } from './components/views/SpreadsheetView';
 import { MorningBriefing } from './components/MorningBriefing';
+import { PasswordProtection } from './components/PasswordProtection';
 import { useTaskStore } from './stores/useTaskStore';
 import { useThemeStore } from './stores/useThemeStore';
 import { taskService } from './lib/supabase';
@@ -99,13 +100,13 @@ function App() {
   };
 
   return (
-    <>
+    <PasswordProtection>
       <Layout>{renderView()}</Layout>
       <MorningBriefing
         isOpen={showMorningBriefing}
         onClose={() => setShowMorningBriefing(false)}
       />
-    </>
+    </PasswordProtection>
   );
 }
 

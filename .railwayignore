@@ -1,0 +1,15 @@
+node_modules
+.git
+.gitignore
+*.md
+.vscode
+.idea
+src
+public
+*.log
+.env.local
+.env.development
+tsconfig.json
+vite.config.ts
+tailwind.config.js
+postcss.config.js

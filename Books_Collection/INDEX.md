@@ -1,10 +1,10 @@
 # My Book Collection
 
-**Total Books: 51**
+**Total Books: 72**
 - EPUB: 23 books
-- PDF: 28 books
+- PDF: 49 books
 
-Last Updated: November 5, 2025
+Last Updated: November 7, 2025
 
 ---
 
@@ -43,9 +43,9 @@ Last Updated: November 5, 2025
 
 ---
 
-## PDF Books (28)
+## PDF Books (49)
 
-### Design & UX (10)
+### Design & UX (21)
 1. **The Design of Everyday Things** (Don Norman) - Revised and Expanded Edition
 2. **Strategic Writing for UX** - Drive Engagement, Conversion, and Retention with Every Word (Torrey Podmajersky)
 3. **UX Fundamentals for Non-UX Professionals** - User Experience Principles for Managers, Writers, Designers, and Developers
@@ -55,7 +55,18 @@ Last Updated: November 5, 2025
 7. **IDEO Human-Centered Design Toolkit** (Korean version)
 8. **Design without Designers** (Burdick)
 9. **EDITORIAL TYPOGRAPHY** - Terms, Rules, and Principles
-10. **Brand Exercises** - Practical workbook
+10. **LOGO Modernism** (Jens Müller, R. Roger Remington) - NEW
+11. **Letterhead and Logo Design v. 9** - Massive design library - NEW
+12. **Logo Design Love** - A Guide to Creating Iconic Brand Identities (David Airey) - NEW
+13. **Logotype** (Michael Evamy) - NEW
+14. **Trademarks and Symbols Vol 1** - Alphabetical Designs (Yasaburo Kuwayama) - NEW
+15. **Trademarks and Symbols Vol 2** - Symbolical Designs (Yasaburo Kuwayama) - NEW
+16. **By Its Cover** - Modern American Book Cover Design (Ned Drew, Paul Sternberger) - NEW
+17. **Creating a Brand Identity** - A Guide for Designers (Catharine Slade-Brooking) - NEW
+18. **The Form of the Book** - Essays on the morality of good design (Jan Tschichold) - NEW
+19. **Product Design and Development** (Karl T. Ulrich, Steven D. Eppinger) - NEW
+20. **Product Design** (Alex Milton, Paul Rodgers) - NEW
+21. **Making and Breaking the Grid** - A Graphic Design Layout Workshop - NEW
 
 ### Movie & Cinematography (6)
 1. **Painting with Light** (John Alton) - Classic cinematography text
@@ -65,7 +76,7 @@ Last Updated: November 5, 2025
 5. **Master Shots** - 100 advanced camera techniques to get an expensive look on your low-budget movie
 6. **Master Shots Vol 3** - The Director's Vision: 100 Setups, Scenes and Moves for Your Breakthrough Movie
 
-### Business & Marketing (8)
+### Business & Marketing (14)
 1. **Data-Driven Marketing** (Mark Jeffery)
 2. **Competitive Strategy** (Michael E. Porter) - Business strategy classic
 3. **Strategic Management and Competitive Advantage**
@@ -74,6 +85,17 @@ Last Updated: November 5, 2025
 6. **Market Research in Practice** - An Introduction to Gaining Greater Market Insight
 7. **Designing Brand Identity** - Complete branding guide
 8. **Principles of Economics** (Mankiw, 2017)
+9. **The Economics Book** [hardcover] (DK) - NEW
+10. **Keller Strategic Brand Management** - NEW
+11. **Building Strong Brands** (David A. Aaker) - NEW
+12. **The Startup Checklist** - 25 Steps to a Scalable, High-Growth Business - NEW
+13. **Business Research Methods** (12th Edition) - NEW
+14. **Consumer Behavior** - Buying, Having, and Being (Global Edition) - NEW
+
+### Data & Analytics (3)
+1. **Data Science for Business** - NEW
+2. **Data-Driven Marketing** (Mark Jeffery)
+3. **Lean Analytics** - Use Data to Build a Better Startup Faster
 
 ### Humanities & Liberal Arts (4)
 1. **How to Write Better Essays** - Academic writing guide
@@ -86,7 +108,7 @@ Last Updated: November 5, 2025
 ## Directory Structure
 
 ```
-~/Documents/Books_Collection/
+~/ob2/Books_Collection/
 ├── EPUB/
 │   ├── Business/
 │   ├── Design/
@@ -97,6 +119,7 @@ Last Updated: November 5, 2025
     ├── Design_UX/
     ├── Movie_Cinematography/
     ├── Business_Marketing/
+    ├── Data_Analytics/
     ├── Humanities/
     └── Economy/
 ```
@@ -114,11 +137,19 @@ Last Updated: November 5, 2025
 
 To browse the collection:
 ```bash
-cd ~/Documents/Books_Collection
+cd ~/ob2/Books_Collection
 ls -R
 ```
 
 To search for a specific book:
 ```bash
-find ~/Documents/Books_Collection -iname "*keyword*"
+find ~/ob2/Books_Collection -iname "*keyword*"
 ```
+
+## Recent Additions (Nov 7, 2025)
+
+Added 21 new professional books:
+- 11 Design/Logo books (LOGO Modernism, Trademarks & Symbols, etc.)
+- 6 Business/Marketing books (Building Strong Brands, Consumer Behavior, etc.)
+- 3 Data Analytics books
+- 1 Grid design book

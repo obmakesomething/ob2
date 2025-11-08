@@ -2,17 +2,28 @@ import Anthropic from '@anthropic-ai/sdk';
 import type { AIAnalysis, GitCommit } from '@/types';
 
 const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
+const USE_AI = !!apiKey;
 
-if (!apiKey) {
-  console.warn('Anthropic API key not found. Please set VITE_ANTHROPIC_API_KEY in your .env file.');
+if (!USE_AI) {
+  console.warn('Anthropic API key not found. AI features disabled. Using simple fallbacks.');
 }
 
-const client = new Anthropic({
-  apiKey: apiKey || 'placeholder',
-  dangerouslyAllowBrowser: true, // Note: In production, use a backend proxy
-});
+const client = USE_AI
+  ? new Anthropic({
+      apiKey: apiKey,
+      dangerouslyAllowBrowser: true,
+    })
+  : null;
 
 export async function analyzeCommit(commit: GitCommit): Promise<AIAnalysis> {
+  if (!USE_AI || !client) {
+    return {
+      tags: ['unclassified'],
+      priority: 'medium',
+      context: commit.message,
+    };
+  }
+
   try {
     const message = await client.messages.create({
       model: 'claude-3-5-sonnet-20241022',
@@ -76,6 +87,15 @@ export async function analyzeTaskInput(input: string): Promise<{
   project?: string;
   estimated_duration?: number;
 }> {
+  if (!USE_AI || !client) {
+    return {
+      description: input,
+      priority: 'medium',
+      tags: [],
+      context: 'General',
+    };
+  }
+
   try {
     const message = await client.messages.create({
       model: 'claude-3-5-sonnet-20241022',
@@ -138,6 +158,16 @@ export async function generateReview(
   startDate: string,
   endDate: string
 ): Promise<{ summary: string; insights: string[] }> {
+  if (!USE_AI || !client) {
+    return {
+      summary: `${period.charAt(0).toUpperCase() + period.slice(1)} review for ${startDate} to ${endDate}: ${tasks.length} tasks completed.`,
+      insights: [
+        `Completed ${tasks.length} tasks during this period`,
+        'AI review generation is disabled',
+      ],
+    };
+  }
+
   try {
     const taskSummary = tasks
       .map(

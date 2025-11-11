@@ -22,6 +22,21 @@ export async function generateDailyReview(
   const start = startOfDay(date).toISOString();
   const end = endOfDay(date).toISOString();
 
+  // Check if Supabase is available
+  if (!supabase) {
+    return {
+      date: dateStr,
+      summary: 'Daily reviews require Supabase configuration.',
+      insights: ['Enable Supabase to use daily review features.'],
+      total_tasks: 0,
+      completed_tasks: 0,
+      total_time_spent: 0,
+      time_by_project: {},
+      time_by_tag: {},
+      suggestions: [],
+    };
+  }
+
   // Get tasks for the day
   const { data: tasks, error } = await supabase
     .from('tasks')
@@ -93,7 +108,9 @@ export async function generateDailyReview(
   };
 
   // Save to database
-  await supabase.from('daily_reviews').upsert(reviewData);
+  if (supabase) {
+    await supabase.from('daily_reviews').upsert(reviewData);
+  }
 
   return reviewData;
 }
@@ -178,6 +195,8 @@ export function scheduleDailyReview(hour: number = 18) {
 
 // Get today's review
 export async function getTodayReview(): Promise<DailyReviewData | null> {
+  if (!supabase) return null;
+
   const today = format(new Date(), 'yyyy-MM-dd');
 
   const { data, error } = await supabase

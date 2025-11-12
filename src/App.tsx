@@ -46,9 +46,9 @@ function App() {
     loadTasks();
   }, [setTasks, setLoading, setError]);
 
-  // Schedule daily review (6 PM by default)
+  // Schedule daily review (disabled)
   useEffect(() => {
-    scheduleDailyReview(18); // 18:00 (6 PM)
+    scheduleDailyReview();
   }, []);
 
   // Morning briefing at 8 AM Korea time
